@@ -35,16 +35,21 @@ if feedback.strip():
     st.info(f"Suggested category: {suggested_category}")
 st.write("Selected issue:", issue)
 
+
 if st.button("Submit Feedback"):
     if feedback.strip():
-        save_feedback(issue, feedback)
+        suggested_category = categorize_feedback(feedback)
+
+        save_feedback(issue, feedback, suggested_category)
 
         st.success("Your feedback has been saved successfully!")
 
-        st.write("Issue:", issue)
+        st.write("Selected issue:", issue)
+        st.write("AI-suggested category:", suggested_category)
         st.write("Your feedback:", feedback)
     else:
         st.warning("Please describe your issue before submitting.")
+
 
 st.header("Feedback History")
 
