@@ -57,6 +57,7 @@ if st.button("Submit Feedback"):
 
         st.write("Selected issue:", issue)
         st.write("AI-suggested category:", suggested_category)
+        st.write("Suggested priority:", suggested_priority)
         st.write("Your feedback:", feedback)
     else:
         st.warning("Please describe your issue before submitting.")
