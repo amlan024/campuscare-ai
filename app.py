@@ -212,7 +212,7 @@ if records:
                 "Description": record[2],
                 "AI-suggested Category": record[3],
                 "Suggested Priority": record[4],
-                "Submitted At": record[5],
+                "Submitted At": str(record[5]),
             }
             for record in records
         ],
