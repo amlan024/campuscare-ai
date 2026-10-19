@@ -83,8 +83,6 @@ def get_all_feedback():
         """
     )
 
-    )
-
     records = cursor.fetchall()
 
     connection.close()
