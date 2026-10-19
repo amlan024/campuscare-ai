@@ -233,24 +233,28 @@ st.caption(f"Matching feedback records: {len(records)}")
 
 
 
+
 if records:
+    feedback_table = [
+        {
+            "Feedback ID": record[0],
+            "Issue": record[1],
+            "Description": record[2],
+            "AI-suggested Category": record[3],
+            "Suggested Priority": record[4],
+            "Submitted At": str(record[5]),
+        }
+        for record in records
+    ]
+
     st.dataframe(
-        [
-            {
-                "Feedback ID": record[0],
-                "Issue": record[1],
-                "Description": record[2],
-                "AI-suggested Category": record[3],
-                "Suggested Priority": record[4],
-                "Submitted At": str(record[5]),
-            }
-            for record in records
-        ],
+        feedback_table,
         use_container_width=True,
     )
 
 else:
-    st.info("No feedback has been submitted yet.")
+    st.info("No feedback matches the selected filters or search.")
+
 
 
 
