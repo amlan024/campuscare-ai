@@ -72,6 +72,25 @@ st.metric(
 )
 
 
+st.subheader("Feedback by Category")
+
+category_counts = get_feedback_category_counts()
+
+if category_counts:
+    st.dataframe(
+        [
+            {
+                "AI-suggested Category": category,
+                "Number of Submissions": count,
+            }
+            for category, count in category_counts
+        ],
+        use_container_width=True,
+    )
+else:
+    st.info("No feedback categories are available yet.")
+
+
 if records:
     st.dataframe(
         [
