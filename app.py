@@ -47,11 +47,18 @@ if feedback.strip():
 st.write("Selected issue:", issue)
 
 
+
 if st.button("Submit Feedback"):
     if feedback.strip():
         suggested_category = categorize_feedback(feedback)
+        suggested_priority = suggest_priority(feedback)
 
-        save_feedback(issue, feedback, suggested_category, suggested_priority)
+        save_feedback(
+            issue,
+            feedback,
+            suggested_category,
+            suggested_priority
+        )
 
         st.success("Your feedback has been saved successfully!")
 
@@ -61,6 +68,7 @@ if st.button("Submit Feedback"):
         st.write("Your feedback:", feedback)
     else:
         st.warning("Please describe your issue before submitting.")
+
 
 
 st.header("Feedback History")
