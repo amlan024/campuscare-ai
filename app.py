@@ -30,6 +30,9 @@ issue = st.selectbox(
 
 feedback = st.text_area("Describe your issue")
 
+if feedback.strip():
+    suggested_category = categorize_feedback(feedback)
+    st.info(f"Suggested category: {suggested_category}")
 st.write("Selected issue:", issue)
 
 if st.button("Submit Feedback"):
