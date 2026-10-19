@@ -56,6 +56,11 @@ st.write("Selected issue:", issue)
 
 
 
+st.caption(
+    "Please review your description before submitting. "
+    "Use sample, non-sensitive feedback while testing."
+)
+
 if st.button("Submit Feedback"):
     if feedback.strip():
         suggested_category = categorize_feedback(feedback)
