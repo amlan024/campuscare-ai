@@ -28,3 +28,9 @@ issue = st.selectbox(
 feedback = st.text_area("Describe your issue")
 
 st.write("Selected issue:", issue)
+
+if st.button("Submit Feedback"):
+    if feedback.strip():
+        st.success("Your feedback has been submitted successfully!")
+    else:
+        st.warning("Please describe your issue before submitting.")
