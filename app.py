@@ -55,6 +55,16 @@ st.header("Feedback History")
 
 records = get_all_feedback()
 
+st.subheader("Feedback Summary")
+
+total_feedback = len(records)
+
+st.metric(
+    label="Total Feedback Submissions",
+    value=total_feedback
+)
+
+
 if records:
     st.dataframe(
         [
