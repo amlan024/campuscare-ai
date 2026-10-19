@@ -52,6 +52,11 @@ if feedback.strip():
     suggested_priority = suggest_priority(feedback)
 
     st.info(f"Suggested category: {suggested_category}")
+    st.caption(
+        "The suggested category is generated using predefined "
+        "rules. Please review it because some descriptions may "
+        "be categorized incorrectly."
+    )
     st.write(f"Suggested priority: {suggested_priority}")
     st.caption(
         "Priority is a rule-based suggestion and may not always "
@@ -65,6 +70,13 @@ st.write("Selected issue:", issue)
 st.caption(
     "Please review your description before submitting. "
     "Use sample, non-sensitive feedback while testing."
+)
+
+st.warning(
+    "Privacy reminder: Do not include passwords, student ID "
+    "numbers, financial details, or other sensitive personal "
+    "information. Use sample, non-sensitive feedback while "
+    "testing this prototype."
 )
 
 confirm_submission = st.checkbox(
@@ -89,7 +101,10 @@ if st.button(
         st.session_state.feedback_input = ""
         st.session_state.confirm_submission = False
         
-        st.success("Your feedback has been saved successfully!")
+        st.success(
+            f"Your feedback has been saved successfully! "
+            f"Submission time: {get_all_feedback()[-1][5]}"
+        )
 
         st.write("Selected issue:", issue)
         st.write("AI-suggested category:", suggested_category)
