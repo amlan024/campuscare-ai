@@ -71,6 +71,10 @@ if st.button("Submit Feedback"):
         st.warning("Please describe your issue before submitting.")
 
 
+if st.button("Refresh Feedback Data"):
+    st.rerun()
+
+st.header("Feedback History")
 
 st.header("Feedback History")
 
