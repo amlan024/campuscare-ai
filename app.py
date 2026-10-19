@@ -101,6 +101,16 @@ if records:
         ]
 
 
+
+    
+    if selected_priority != "All Priorities":
+        records = [
+            record for record in records
+            if record[4] == selected_priority
+        ]
+
+
+
 st.subheader("Feedback Summary")
 
 total_feedback = len(records)
