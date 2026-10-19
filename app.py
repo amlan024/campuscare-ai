@@ -221,3 +221,57 @@ if records:
 
 else:
     st.info("No feedback has been submitted yet.")
+
+
+
+
+
+
+
+
+st.header("🎓 Student Guide")
+
+st.write(
+    "Find helpful guidance for common campus-related questions."
+)
+
+guide_topic = st.selectbox(
+    "Choose a guidance topic",
+    [
+        "Hostel Facilities",
+        "Water Supply",
+        "Internet",
+        "Academic Support",
+        "General Campus Guidance",
+    ],
+)
+
+if guide_topic == "Hostel Facilities":
+    st.info(
+        "For hostel-related concerns, contact your hostel "
+        "warden or the appropriate campus office."
+    )
+
+elif guide_topic == "Water Supply":
+    st.info(
+        "For water supply problems, report the issue to "
+        "the responsible campus maintenance team."
+    )
+
+elif guide_topic == "Internet":
+    st.info(
+        "For internet connectivity problems, contact your "
+        "campus IT support team."
+    )
+
+elif guide_topic == "Academic Support":
+    st.info(
+        "For academic guidance, contact your faculty advisor "
+        "or the appropriate academic office."
+    )
+
+else:
+    st.info(
+        "For general campus guidance, consult your institute's "
+        "official website or student support office."
+    )
