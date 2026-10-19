@@ -44,7 +44,6 @@ if feedback.strip():
 
     st.info(f"Suggested category: {suggested_category}")
     st.write(f"Suggested priority: {suggested_priority}")
-```
 
 ### 3. What will happen?
 
