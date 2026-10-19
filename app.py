@@ -280,33 +280,43 @@ else:
 
 
 
+
 st.subheader("❓ Frequently Asked Questions")
 
-with st.expander("How do I report a campus problem?"):
-    st.write(
-        "Use the Student Feedback section to describe your "
-        "campus-related concern and submit it."
-    )
+faq_items = {
+    "How do I report a campus problem?":
+        "Use the Student Feedback section to describe your campus-related concern and submit it.",
 
-with st.expander("How can I get academic guidance?"):
-    st.write(
-        "Select Academic Support in the Student Guide and "
-        "contact your faculty advisor or the appropriate "
-        "academic office."
-    )
+    "How can I get academic guidance?":
+        "Select Academic Support in the Student Guide and contact your faculty advisor or the appropriate academic office.",
 
-with st.expander("What should I do about an urgent safety issue?"):
-    st.write(
-        "Contact the appropriate campus emergency or safety "
-        "personnel immediately. Do not rely on this prototype "
-        "as an emergency response service."
-    )
+    "What should I do about an urgent safety issue?":
+        "Contact the appropriate campus emergency or safety personnel immediately. Do not rely on this prototype as an emergency response service.",
 
-with st.expander("How do I get help with internet problems?"):
-    st.write(
-        "Select Internet in the Student Guide and contact "
-        "your campus IT support team."
-    )
+    "How do I get help with internet problems?":
+        "Select Internet in the Student Guide and contact your campus IT support team.",
+}
+
+faq_search = st.text_input(
+    "Search FAQs",
+    placeholder="Type a keyword, e.g. internet or academic",
+)
+
+matching_faqs = {
+    question: answer
+    for question, answer in faq_items.items()
+    if faq_search.strip().lower() in (
+        question + " " + answer
+    ).lower()
+}
+
+if matching_faqs:
+    for question, answer in matching_faqs.items():
+        with st.expander(question):
+            st.write(answer)
+else:
+    st.info("No matching FAQs found. Try another keyword.")
+
 
 
 
