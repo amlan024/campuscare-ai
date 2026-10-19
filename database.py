@@ -37,21 +37,28 @@ def create_table():
 
 
 
-def save_feedback(issue, description, suggested_category):
+
+def save_feedback(issue, description, suggested_category, suggested_priority):
     connection = sqlite3.connect("campuscare.db")
 
     cursor = connection.cursor()
 
     cursor.execute(
         """
-        INSERT INTO feedback (issue, description, suggested_category)
-        VALUES (?, ?, ?)
+        INSERT INTO feedback (
+            issue,
+            description,
+            suggested_category,
+            suggested_priority
+        )
+        VALUES (?, ?, ?, ?)
         """,
-        (issue, description, suggested_category)
+        (issue, description, suggested_category, suggested_priority)
     )
 
     connection.commit()
     connection.close()
+
 
 
 
