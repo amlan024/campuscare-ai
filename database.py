@@ -12,6 +12,7 @@ def create_table():
             issue TEXT NOT NULL,
             description TEXT NOT NULL,
             suggested_category TEXT DEFAULT 'Other',
+            suggested_priority TEXT DEFAULT 'Normal',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
@@ -23,6 +24,13 @@ def create_table():
         cursor.execute(
             "ALTER TABLE feedback ADD COLUMN suggested_category TEXT DEFAULT 'Other'"
         )
+
+    
+    if "suggested_priority" not in columns:
+        cursor.execute(
+            "ALTER TABLE feedback ADD COLUMN suggested_priority TEXT DEFAULT 'Normal'"
+        )
+
 
     connection.commit()
     connection.close()
