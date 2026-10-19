@@ -40,6 +40,7 @@ feedback = st.text_area(
     "Describe your issue",
     max_chars=1000,
     help="Describe your campus issue in up to 1,000 characters.",
+    key="feedback_input",
 )
 st.caption(
     f"Characters used: {len(feedback)} / 1000"
@@ -79,7 +80,8 @@ if st.button(
             suggested_category,
             suggested_priority
         )
-
+        st.session_state.feedback_input = ""
+        
         st.success("Your feedback has been saved successfully!")
 
         st.write("Selected issue:", issue)
