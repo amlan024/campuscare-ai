@@ -47,11 +47,10 @@ if feedback.strip():
 
 ### 3. What will happen?
 
-| Sample feedback | Suggested priority |
-|---|---|
-| `The hostel is unsafe` | High |
-| `There is an urgent water problem` | High |
-| `The internet is slow` | Normal |
+Sample feedback  Suggested priority 
+The hostel is unsafe High 
+There is an urgent water problem High 
+The internet is slow Normal 
 
 The priority is a keyword-based suggestion only. It cannot reliably determine the seriousness of every real-world issue.
 
