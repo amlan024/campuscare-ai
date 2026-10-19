@@ -62,13 +62,11 @@ def save_feedback(issue, description, suggested_category, suggested_priority):
 
 
 
+
 def get_all_feedback():
     connection = sqlite3.connect("campuscare.db")
-
     cursor = connection.cursor()
 
-    cursor.execute(
-        
     cursor.execute(
         """
         SELECT
@@ -84,10 +82,10 @@ def get_all_feedback():
     )
 
     records = cursor.fetchall()
-
     connection.close()
 
     return records
+
 
 
 
