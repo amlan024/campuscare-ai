@@ -61,7 +61,10 @@ st.caption(
     "Use sample, non-sensitive feedback while testing."
 )
 
-if st.button("Submit Feedback"):
+if st.button(
+    "Submit Feedback",
+    disabled=not feedback.strip(),
+):
     if feedback.strip():
         suggested_category = categorize_feedback(feedback)
         suggested_priority = suggest_priority(feedback)
