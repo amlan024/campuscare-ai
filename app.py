@@ -1,6 +1,6 @@
 
 import streamlit as st
-from database import create_table
+from database import create_table, save_feedback
 
 create_table()
 st.set_page_config(
