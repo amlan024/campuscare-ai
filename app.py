@@ -474,8 +474,33 @@ overview_counts = get_feedback_category_counts()
 if overview_counts:
     st.write("Current feedback by campus issue category:")
 
-    for category, count in overview_counts:
-        st.write(f"- **{category}:** {count} submission(s)")
+    overview_table = [
+        {
+            "Category": category,
+            "Number of Submissions": count,
+        }
+        for category, count in overview_counts
+    ]
+
+    for item in overview_table:
+        st.write(
+            f"- **{item['Category']}:** "
+            f"{item['Number of Submissions']} submission(s)"
+        )
+
+    overview_df = pd.DataFrame(overview_table)
+
+    overview_csv = overview_df.to_csv(
+        index=False
+    ).encode("utf-8")
+
+    st.download_button(
+        label="Download Campus Issue Overview as CSV",
+        data=overview_csv,
+        file_name="campuscare_issue_overview.csv",
+        mime="text/csv",
+    )
+
 else:
     st.info(
         "No feedback has been submitted yet. "
