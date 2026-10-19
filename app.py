@@ -44,24 +44,6 @@ if feedback.strip():
 
     st.info(f"Suggested category: {suggested_category}")
     st.write(f"Suggested priority: {suggested_priority}")
-
-### 3. What will happen?
-
-Sample feedback  Suggested priority 
-The hostel is unsafe High 
-There is an urgent water problem High 
-The internet is slow Normal 
-
-The priority is a keyword-based suggestion only. It cannot reliably determine the seriousness of every real-world issue.
-
-### 4. Commit and test
-
-1. Commit the changes to `app.py`.
-2. Open your deployed website.
-3. Type `The hostel is unsafe` into the feedback box.
-4. Check whether both the suggested category and priority appear.
-
-**Tell me when you've tested Step 36.** We'll proceed after confirming it works.
 st.write("Selected issue:", issue)
 
 
