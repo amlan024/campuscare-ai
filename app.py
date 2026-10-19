@@ -139,7 +139,8 @@ if records:
                 "Issue": record[1],
                 "Description": record[2],
                 "AI-suggested Category": record[3],
-                "Submitted At": record[4],
+                "Suggested Priority": record[4],
+                "Submitted At": record[5],
             }
             for record in records
         ],
