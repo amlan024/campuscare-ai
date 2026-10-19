@@ -219,11 +219,14 @@ feedback_search = st.text_input(
     key="feedback_search",
 )
 
+
 if feedback_search.strip():
     records = [
         record for record in records
-        if feedback_search.strip().lower() in record[2].lower()
+        if feedback_search.strip().lower()
+        in (record[1] + " " + record[2]).lower()
     ]
+
 
 st.caption(f"Matching feedback records: {len(records)}")
 
