@@ -87,6 +87,23 @@ if category_counts:
         ],
         use_container_width=True,
     )
+
+
+
+    
+    st.subheader("Category Distribution")
+
+    chart_data = {
+        "Category": [category for category, count in category_counts],
+        "Submissions": [count for category, count in category_counts],
+    }
+
+    st.bar_chart(
+        chart_data,
+        x="Category",
+        y="Submissions",
+    )
+
 else:
     st.info("No feedback categories are available yet.")
 
