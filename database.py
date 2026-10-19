@@ -111,3 +111,27 @@ def get_feedback_category_counts():
 
     return category_counts
 
+
+
+
+
+
+def get_feedback_priority_counts():
+    connection = sqlite3.connect("campuscare.db")
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        SELECT suggested_priority, COUNT(*)
+        FROM feedback
+        GROUP BY suggested_priority
+        ORDER BY COUNT(*) DESC
+        """
+    )
+
+    priority_counts = cursor.fetchall()
+
+    connection.close()
+
+    return priority_counts
