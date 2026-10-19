@@ -33,7 +33,9 @@ st.write("Selected issue:", issue)
 
 if st.button("Submit Feedback"):
     if feedback.strip():
-        st.success("Your feedback has been submitted successfully!")
+        save_feedback(issue, feedback)
+
+        st.success("Your feedback has been saved successfully!")
 
         st.write("Issue:", issue)
         st.write("Your feedback:", feedback)
