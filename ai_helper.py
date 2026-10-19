@@ -15,3 +15,24 @@ def categorize_feedback(feedback):
 
     else:
         return "Other"
+
+
+
+
+def suggest_priority(feedback):
+    text = feedback.lower()
+
+    high_priority_words = [
+        "emergency",
+        "urgent",
+        "danger",
+        "unsafe",
+        "severe",
+    ]
+
+    for word in high_priority_words:
+        if word in text:
+            return "High"
+
+    return "Normal"
+
