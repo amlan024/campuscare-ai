@@ -104,6 +104,33 @@ st.metric(
 )
 
 
+
+priority_counts = get_feedback_priority_counts()
+
+priority_summary = {
+    priority: count
+    for priority, count in priority_counts
+}
+
+high_priority_count = priority_summary.get("High", 0)
+normal_priority_count = priority_summary.get("Normal", 0)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric(
+        label="High Priority Feedback",
+        value=high_priority_count
+    )
+
+with col2:
+    st.metric(
+        label="Normal Priority Feedback",
+        value=normal_priority_count
+    )
+
+
+
 st.subheader("Feedback by Category")
 
 category_counts = get_feedback_category_counts()
