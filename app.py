@@ -1,6 +1,7 @@
 
 import streamlit as st
 from database import create_table, save_feedback, get_all_feedback
+from ai_helper import categorize_feedback
 
 create_table()
 st.set_page_config(
