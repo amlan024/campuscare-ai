@@ -63,7 +63,8 @@ st.caption(
 )
 
 confirm_submission = st.checkbox(
-    "I have reviewed my feedback before submitting."
+    "I have reviewed my feedback before submitting.",
+    key="confirm_submission",
 )
 
 if st.button(
