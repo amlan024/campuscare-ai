@@ -53,6 +53,11 @@ if feedback.strip():
 
     st.info(f"Suggested category: {suggested_category}")
     st.write(f"Suggested priority: {suggested_priority}")
+    st.caption(
+        "Priority is a rule-based suggestion and may not always "
+        "be accurate. For emergencies, contact campus emergency "
+        "or safety personnel directly."
+    )
 st.write("Selected issue:", issue)
 
 
