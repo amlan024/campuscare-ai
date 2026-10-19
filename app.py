@@ -6,6 +6,7 @@ from database import (
     save_feedback,
     get_all_feedback,
     get_feedback_category_counts,
+    get_feedback_priority_counts,
 )
 
 from ai_helper import categorize_feedback, suggest_priority
