@@ -36,7 +36,11 @@ issue = st.selectbox(
     ["Hostel Facilities", "Water Supply", "Internet", "Academic Support", "Other"]
 )
 
-feedback = st.text_area("Describe your issue")
+feedback = st.text_area(
+    "Describe your issue",
+    max_chars=1000,
+    help="Describe your campus issue in up to 1,000 characters.",
+)
 
 
 if feedback.strip():
