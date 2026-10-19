@@ -1,6 +1,6 @@
 
 import streamlit as st
-
+import pandas as pd
 from database import (
     create_table,
     save_feedback,
@@ -251,6 +251,18 @@ if records:
         feedback_table,
         use_container_width=True,
     )
+
+    feedback_df = pd.DataFrame(feedback_table)
+
+    csv_data = feedback_df.to_csv(index=False).encode("utf-8")
+
+    st.download_button(
+        label="Download Feedback as CSV",
+        data=csv_data,
+        file_name="campuscare_feedback.csv",
+        mime="text/csv",
+    )
+
 
 else:
     st.info("No feedback matches the selected filters or search.")
