@@ -214,6 +214,7 @@ if feedback_search.strip():
         record for record in records
         if feedback_search.strip().lower() in record[2].lower()
     ]
+    st.caption(f"Matching feedback records: {len(records)}")
 
 
 
