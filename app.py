@@ -1,6 +1,13 @@
 
 import streamlit as st
-from database import create_table, save_feedback, get_all_feedback
+
+from database import (
+    create_table,
+    save_feedback,
+    get_all_feedback,
+    get_feedback_category_counts,
+)
+
 from ai_helper import categorize_feedback
 
 create_table()
