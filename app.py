@@ -61,9 +61,13 @@ st.caption(
     "Use sample, non-sensitive feedback while testing."
 )
 
+confirm_submission = st.checkbox(
+    "I have reviewed my feedback before submitting."
+)
+
 if st.button(
     "Submit Feedback",
-    disabled=not feedback.strip(),
+    disabled=not feedback.strip() or not confirm_submission,
 ):
     if feedback.strip():
         suggested_category = categorize_feedback(feedback)
