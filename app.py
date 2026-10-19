@@ -76,8 +76,6 @@ if st.button("Refresh Feedback Data"):
 
 st.header("Feedback History")
 
-st.header("Feedback History")
-
 records = get_all_feedback()
 
 
