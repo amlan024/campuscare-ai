@@ -17,3 +17,16 @@ def create_table():
 
     connection.commit()
     connection.close()
+
+def save_feedback(issue, description):
+    connection = sqlite3.connect("campuscare.db")
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "INSERT INTO feedback (issue, description) VALUES (?, ?)",
+        (issue, description)
+    )
+
+    connection.commit()
+    connection.close()
