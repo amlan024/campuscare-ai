@@ -41,3 +41,17 @@ if st.button("Submit Feedback"):
         st.write("Your feedback:", feedback)
     else:
         st.warning("Please describe your issue before submitting.")
+
+st.header("Feedback History")
+
+records = get_all_feedback()
+
+if records:
+    for record in records:
+        st.write("Feedback ID:", record[0])
+        st.write("Issue:", record[1])
+        st.write("Description:", record[2])
+        st.write("Submitted at:", record[3])
+        st.divider()
+else:
+    st.info("No feedback has been submitted yet.")
