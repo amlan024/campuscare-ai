@@ -65,3 +65,28 @@ def get_all_feedback():
     connection.close()
 
     return records
+
+
+
+
+
+def get_feedback_category_counts():
+    connection = sqlite3.connect("campuscare.db")
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        SELECT suggested_category, COUNT(*)
+        FROM feedback
+        GROUP BY suggested_category
+        ORDER BY COUNT(*) DESC
+        """
+    )
+
+    category_counts = cursor.fetchall()
+
+    connection.close()
+
+    return category_counts
+
