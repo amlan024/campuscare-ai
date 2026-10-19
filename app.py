@@ -307,3 +307,42 @@ with st.expander("How do I get help with internet problems?"):
         "Select Internet in the Student Guide and contact "
         "your campus IT support team."
     )
+
+
+
+
+
+st.subheader("📞 Campus Support Directory")
+
+support_contacts = [
+    {
+        "Support Area": "Hostel Facilities",
+        "Contact": "Hostel Warden",
+        "Purpose": "Hostel-related concerns",
+    },
+    {
+        "Support Area": "Internet",
+        "Contact": "Campus IT Support",
+        "Purpose": "Internet and network issues",
+    },
+    {
+        "Support Area": "Academic Support",
+        "Contact": "Faculty Advisor",
+        "Purpose": "Academic guidance",
+    },
+    {
+        "Support Area": "Water Supply",
+        "Contact": "Campus Maintenance Team",
+        "Purpose": "Water and maintenance issues",
+    },
+    {
+        "Support Area": "General Guidance",
+        "Contact": "Student Support Office",
+        "Purpose": "General campus assistance",
+    },
+]
+
+st.dataframe(
+    support_contacts,
+    use_container_width=True,
+)
