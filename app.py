@@ -275,3 +275,35 @@ else:
         "For general campus guidance, consult your institute's "
         "official website or student support office."
     )
+
+
+
+
+
+st.subheader("❓ Frequently Asked Questions")
+
+with st.expander("How do I report a campus problem?"):
+    st.write(
+        "Use the Student Feedback section to describe your "
+        "campus-related concern and submit it."
+    )
+
+with st.expander("How can I get academic guidance?"):
+    st.write(
+        "Select Academic Support in the Student Guide and "
+        "contact your faculty advisor or the appropriate "
+        "academic office."
+    )
+
+with st.expander("What should I do about an urgent safety issue?"):
+    st.write(
+        "Contact the appropriate campus emergency or safety "
+        "personnel immediately. Do not rely on this prototype "
+        "as an emergency response service."
+    )
+
+with st.expander("How do I get help with internet problems?"):
+    st.write(
+        "Select Internet in the Student Guide and contact "
+        "your campus IT support team."
+    )
