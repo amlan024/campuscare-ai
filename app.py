@@ -444,9 +444,22 @@ support_contacts = [
     },
 ]
 
+support_df = pd.DataFrame(support_contacts)
+
 st.dataframe(
-    support_contacts,
+    support_df,
     use_container_width=True,
+)
+
+support_csv = support_df.to_csv(
+    index=False
+).encode("utf-8")
+
+st.download_button(
+    label="Download Support Directory as CSV",
+    data=support_csv,
+    file_name="campuscare_support_directory.csv",
+    mime="text/csv",
 )
 
 
