@@ -8,7 +8,7 @@ from database import (
     get_feedback_category_counts,
 )
 
-from ai_helper import categorize_feedback
+from ai_helper import categorize_feedback, suggest_priority
 
 create_table()
 st.set_page_config(
