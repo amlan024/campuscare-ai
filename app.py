@@ -203,6 +203,20 @@ else:
     st.info("No feedback categories are available yet.")
 
 
+
+feedback_search = st.text_input(
+    "Search feedback descriptions",
+    placeholder="Enter a keyword to search feedback",
+)
+
+if feedback_search.strip():
+    records = [
+        record for record in records
+        if feedback_search.strip().lower() in record[2].lower()
+    ]
+
+
+
 if records:
     st.dataframe(
         [
