@@ -30,3 +30,18 @@ def save_feedback(issue, description):
 
     connection.commit()
     connection.close()
+
+def get_all_feedback():
+    connection = sqlite3.connect("campuscare.db")
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT id, issue, description, created_at FROM feedback ORDER BY id DESC"
+    )
+
+    records = cursor.fetchall()
+
+    connection.close()
+
+    return records
