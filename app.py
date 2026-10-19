@@ -87,6 +87,13 @@ if records:
         ["All Categories"] + categories,
     )
 
+    
+    selected_priority = st.selectbox(
+        "Filter feedback by priority",
+        ["All Priorities", "High", "Normal"],
+    )
+
+    
     if selected_category != "All Categories":
         records = [
             record for record in records
