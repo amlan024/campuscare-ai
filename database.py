@@ -68,11 +68,21 @@ def get_all_feedback():
     cursor = connection.cursor()
 
     cursor.execute(
+        
+    cursor.execute(
         """
-        SELECT id, issue, description, suggested_category, created_at
+        SELECT
+            id,
+            issue,
+            description,
+            suggested_category,
+            suggested_priority,
+            created_at
         FROM feedback
         ORDER BY id DESC
         """
+    )
+
     )
 
     records = cursor.fetchall()
