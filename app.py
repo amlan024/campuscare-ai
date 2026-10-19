@@ -1,5 +1,6 @@
 
 import streamlit as st
+from database import create_table
 
 st.set_page_config(
     page_title="CampusCare AI",
