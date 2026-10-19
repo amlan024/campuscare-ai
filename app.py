@@ -116,7 +116,7 @@ st.subheader("Feedback Summary")
 total_feedback = len(records)
 
 st.metric(
-    label="Total Feedback Submissions",
+    label="Feedback Matching Filters",
     value=total_feedback
 )
 
