@@ -204,9 +204,19 @@ else:
 
 
 
+
+def clear_feedback_search():
+    st.session_state.feedback_search = ""
+
+st.button(
+    "Clear Search",
+    on_click=clear_feedback_search,
+)
+
 feedback_search = st.text_input(
     "Search feedback descriptions",
     placeholder="Enter a keyword to search feedback",
+    key="feedback_search",
 )
 
 if feedback_search.strip():
@@ -214,7 +224,9 @@ if feedback_search.strip():
         record for record in records
         if feedback_search.strip().lower() in record[2].lower()
     ]
-    st.caption(f"Matching feedback records: {len(records)}")
+
+st.caption(f"Matching feedback records: {len(records)}")
+
 
 
 
