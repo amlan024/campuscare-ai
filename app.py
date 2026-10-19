@@ -356,3 +356,23 @@ st.dataframe(
     support_contacts,
     use_container_width=True,
 )
+
+
+
+
+
+
+st.subheader("📊 Campus Issue Overview")
+
+overview_counts = get_feedback_category_counts()
+
+if overview_counts:
+    st.write("Current feedback by campus issue category:")
+
+    for category, count in overview_counts:
+        st.write(f"- **{category}:** {count} submission(s)")
+else:
+    st.info(
+        "No feedback has been submitted yet. "
+        "The issue overview will appear when feedback is available."
+    )
