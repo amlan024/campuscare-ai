@@ -51,7 +51,7 @@ if st.button("Submit Feedback"):
     if feedback.strip():
         suggested_category = categorize_feedback(feedback)
 
-        save_feedback(issue, feedback, suggested_category)
+        save_feedback(issue, feedback, suggested_category, suggested_priority)
 
         st.success("Your feedback has been saved successfully!")
 
