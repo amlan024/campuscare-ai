@@ -62,6 +62,24 @@ st.header("Feedback History")
 
 records = get_all_feedback()
 
+
+if records:
+    categories = sorted(
+        set(record[3] for record in records)
+    )
+
+    selected_category = st.selectbox(
+        "Filter feedback by AI-suggested category",
+        ["All Categories"] + categories,
+    )
+
+    if selected_category != "All Categories":
+        records = [
+            record for record in records
+            if record[3] == selected_category
+        ]
+
+
 st.subheader("Feedback Summary")
 
 total_feedback = len(records)
