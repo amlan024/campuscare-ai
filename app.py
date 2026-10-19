@@ -16,3 +16,6 @@ st.write(
     "and report campus problems."
 )
 
+st.header("Student Feedback")
+
+st.write("Share your campus-related concerns with us.")
