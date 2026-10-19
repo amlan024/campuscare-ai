@@ -113,23 +113,6 @@ priority_summary = {
 }
 
 
-st.subheader("Priority Distribution")
-
-priority_chart_data = {
-    "Priority": ["High", "Normal"],
-    "Number of Submissions": [
-        high_priority_count,
-        normal_priority_count,
-    ],
-}
-
-st.bar_chart(
-    priority_chart_data,
-    x="Priority",
-    y="Number of Submissions",
-)
-
-
 high_priority_count = priority_summary.get("High", 0)
 normal_priority_count = priority_summary.get("Normal", 0)
 
@@ -146,6 +129,24 @@ with col2:
         label="Normal Priority Feedback",
         value=normal_priority_count
     )
+
+
+
+st.subheader("Priority Distribution")
+
+priority_chart_data = {
+    "Priority": ["High", "Normal"],
+    "Number of Submissions": [
+        high_priority_count,
+        normal_priority_count,
+    ],
+}
+
+st.bar_chart(
+    priority_chart_data,
+    x="Priority",
+    y="Number of Submissions",
+)
 
 
 
