@@ -82,6 +82,7 @@ if st.button(
             suggested_priority
         )
         st.session_state.feedback_input = ""
+        st.session_state.confirm_submission = False
         
         st.success("Your feedback has been saved successfully!")
 
