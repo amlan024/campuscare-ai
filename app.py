@@ -47,11 +47,17 @@ st.header("Feedback History")
 records = get_all_feedback()
 
 if records:
-    for record in records:
-        st.write("Feedback ID:", record[0])
-        st.write("Issue:", record[1])
-        st.write("Description:", record[2])
-        st.write("Submitted at:", record[3])
-        st.divider()
+    st.dataframe(
+        [
+            {
+                "Feedback ID": record[0],
+                "Issue": record[1],
+                "Description": record[2],
+                "Submitted At": record[3],
+            }
+            for record in records
+        ],
+        use_container_width=True,
+    )
 else:
     st.info("No feedback has been submitted yet.")
