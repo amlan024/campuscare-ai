@@ -148,6 +148,37 @@ with col2:
     )
 
 
+st.subheader("Priority Summary")
+
+priority_summary_table = [
+    {
+        "Priority": "High",
+        "Number of Submissions": high_priority_count,
+    },
+    {
+        "Priority": "Normal",
+        "Number of Submissions": normal_priority_count,
+    },
+]
+
+priority_summary_df = pd.DataFrame(priority_summary_table)
+
+st.dataframe(
+    priority_summary_df,
+    use_container_width=True,
+)
+
+priority_csv = priority_summary_df.to_csv(
+    index=False
+).encode("utf-8")
+
+st.download_button(
+    label="Download Priority Summary as CSV",
+    data=priority_csv,
+    file_name="campuscare_priority_summary.csv",
+    mime="text/csv",
+)
+
 
 st.subheader("Priority Distribution")
 
