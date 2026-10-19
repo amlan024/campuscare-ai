@@ -172,15 +172,30 @@ st.subheader("Feedback by Category")
 category_counts = get_feedback_category_counts()
 
 if category_counts:
+    category_summary = [
+        {
+            "AI-suggested Category": category,
+            "Number of Submissions": count,
+        }
+        for category, count in category_counts
+    ]
+
     st.dataframe(
-        [
-            {
-                "AI-suggested Category": category,
-                "Number of Submissions": count,
-            }
-            for category, count in category_counts
-        ],
+        category_summary,
         use_container_width=True,
+    )
+
+    category_summary_df = pd.DataFrame(category_summary)
+
+    category_csv = category_summary_df.to_csv(
+        index=False
+    ).encode("utf-8")
+
+    st.download_button(
+        label="Download Category Summary as CSV",
+        data=category_csv,
+        file_name="campuscare_category_summary.csv",
+        mime="text/csv",
     )
 
 
