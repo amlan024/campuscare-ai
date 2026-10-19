@@ -103,7 +103,7 @@ if st.button(
         
         st.success(
             f"Your feedback has been saved successfully! "
-            f"Submission time: {get_all_feedback()[-1][5]}"
+            f"Submission time: {get_all_feedback()[0][5]}"
         )
 
         st.write("Selected issue:", issue)
