@@ -26,38 +26,39 @@ st.info(
     "or other sensitive personal information."
 )
 
-with st.form("student_feedback_form"):
-    issue = st.selectbox(
-        "What issue are you experiencing?",
-        [
-            "Hostel Facilities",
-            "Water Supply",
-            "Internet",
-            "Academic Support",
-            "Other",
-        ],
-    )
 
-    description = st.text_area(
-        "Describe your issue",
-        max_chars=1000,
-        placeholder=(
-            "Example: The internet connection in the hostel study "
-            "area has been slow since yesterday."
-        ),
-    )
+issue = st.selectbox(
+    "What issue are you experiencing?",
+    [
+        "Hostel Facilities",
+        "Water Supply",
+        "Internet",
+        "Academic Support",
+        "Other",
+    ],
+)
 
-    confirm_submission = st.checkbox(
-        "I confirm that my feedback contains no sensitive personal information."
-    )
+description = st.text_area(
+    "Describe your issue",
+    max_chars=1000,
+    placeholder=(
+        "Example: The internet connection in the hostel study "
+        "area has been slow since yesterday."
+    ),
+)
 
-    submitted = st.form_submit_button(
-        "Submit Feedback",
-        disabled=(
-            not description.strip()
-            or not confirm_submission
-        ),
-    )
+confirm_submission = st.checkbox(
+    "I confirm that my feedback contains no sensitive personal information."
+)
+
+submitted = st.button(
+    "Submit Feedback",
+    disabled=(
+        not description.strip()
+        or not confirm_submission
+    ),
+)
+
 if submitted:
     if not description.strip():
         st.warning("Please describe your issue before submitting.")
