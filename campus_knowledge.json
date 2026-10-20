@@ -1,1 +1,32 @@
 
+[
+  {
+    "id": "academic-001",
+    "topic": "Academic Support",
+    "question": "Where can a student get academic guidance?",
+    "answer": "Students can contact their faculty advisor or the appropriate academic office.",
+    "source": "CampusCare AI sample guidance"
+  },
+  {
+    "id": "internet-001",
+    "topic": "Internet",
+    "question": "What should a student do about internet connectivity problems?",
+    "answer": "Students can contact the campus IT support team for internet connectivity problems.",
+    "source": "CampusCare AI sample guidance"
+  },
+  {
+    "id": "hostel-001",
+    "topic": "Hostel Facilities",
+    "question": "Where should a student report a hostel problem?",
+    "answer": "Students can contact their hostel warden or the appropriate campus office.",
+    "source": "CampusCare AI sample guidance"
+  },
+  {
+    "id": "water-001",
+    "topic": "Water Supply",
+    "question": "Where should a student report water supply problems?",
+    "answer": "Students can report water supply problems to the responsible campus maintenance team.",
+    "source": "CampusCare AI sample guidance"
+  }
+]
+
