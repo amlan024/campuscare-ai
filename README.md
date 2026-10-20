@@ -48,7 +48,7 @@ The platform combines rule-based feedback categorization, priority suggestions, 
 
 ```bash
 git clone https://github.com/amlan024/campuscare-ai
-cd YOUR_REPOSITORY_FOLDER
+cd campuscare-ai
 ```
 
 Replace the placeholders with your actual repository URL and folder name.
@@ -109,12 +109,8 @@ Deploy each application separately:
 
 Configure secrets separately for each deployed application. The public student portal should not receive the administrator's server-side database secret, administrator password, or Gemini API key unless its code explicitly requires them.
 
-Add your actual deployed application URLs here:
-
 - **Student Portal:** https://campuscare-ai-8airkmr3qobhqmxrsfhh6l.streamlit.app/
 - **Administrator Dashboard:** https://campuscare-ai-nvbeqhupr3braoqkqjsctx.streamlit.app/
-
-Replace both placeholders with the real URLs before publishing the project documentation.
 
 ## 🔐 Security, Privacy, and Limitations
 
