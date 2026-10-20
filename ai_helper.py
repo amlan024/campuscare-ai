@@ -142,6 +142,22 @@ STUDENT QUESTION:
         contents=prompt,
     )
 
+    import time
+
+    response = None
+
+    for attempt in range(2):
+        try:
+            response = client.models.generate_content(
+                model="gemini-flash-latest",
+                contents=prompt,
+            )
+            break
+        except Exception:
+            if attempt == 1:
+                raise
+            time.sleep(2)
+
     answer = response.text
 
     if not answer:
