@@ -163,6 +163,10 @@ st.button(
 )
 
 st.header("Feedback History")
+st.caption(
+    "Review submitted campus feedback, explore categories and "
+    "priorities, and search records using keywords."
+)
 
 records = get_all_feedback()
 
