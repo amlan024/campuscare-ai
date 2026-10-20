@@ -651,3 +651,41 @@ else:
         "No feedback has been submitted yet. "
         "The issue overview will appear when feedback is available."
     )
+
+
+
+
+
+
+st.header("Campus Knowledge Assistant")
+
+st.write(
+    "Ask a campus question to find relevant entries in the current "
+    "sample knowledge base. This prototype uses keyword retrieval; "
+    "it does not yet generate AI answers or verify official institute policy."
+)
+
+campus_question = st.text_input(
+    "Ask a campus question",
+    placeholder="e.g. Where can I get academic guidance?",
+    key="campus_question",
+)
+
+if campus_question.strip():
+    retrieved_entries = retrieve_campus_knowledge(campus_question)
+
+    if retrieved_entries:
+        st.subheader("Relevant guidance")
+
+        for entry in retrieved_entries:
+            with st.expander(entry["question"]):
+                st.write(entry["answer"])
+                st.caption(
+                    f"Topic: {entry['topic']} | Source: {entry['source']}"
+                )
+    else:
+        st.info(
+            "No relevant campus guidance was found in the current "
+            "knowledge base. Try different keywords or consult official "
+            "institute resources."
+        )
