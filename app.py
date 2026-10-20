@@ -397,6 +397,7 @@ guide_topic = st.selectbox(
         "Water Supply",
         "Internet",
         "Academic Support",
+        "Urgent Safety Issue",
         "General Campus Guidance",
     ],
 )
