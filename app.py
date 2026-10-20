@@ -130,10 +130,14 @@ if st.button(
 
         st.session_state.submission_processed = True
         
+        
         st.success(
-            f"Your feedback has been saved successfully! "
+            "Thank you! Your feedback has been saved successfully."
+        )
+        st.caption(
             f"Submission time: {get_all_feedback()[0][5]}"
         )
+
 
         st.write("Selected issue:", issue)
         st.write("AI-suggested category:", suggested_category)
