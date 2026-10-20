@@ -108,9 +108,8 @@ if st.button(
             suggested_category,
             suggested_priority
         )
+
         st.session_state.submission_processed = True
-        st.session_state.feedback_input = ""
-        st.session_state.confirm_submission = False
         
         st.success(
             f"Your feedback has been saved successfully! "
