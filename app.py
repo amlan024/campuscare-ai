@@ -88,7 +88,11 @@ confirm_submission = st.checkbox(
 
 if st.button(
     "Submit Feedback",
-    disabled=not feedback.strip() or not confirm_submission,
+    disabled=(
+        not feedback.strip()
+        or not confirm_submission
+        or st.session_state.submission_processed
+    ),
 ):
     if feedback.strip():
         suggested_category = categorize_feedback(feedback)
