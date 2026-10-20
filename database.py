@@ -5,16 +5,30 @@ from supabase import create_client
 
 @st.cache_resource
 def get_database_client():
-    """Create and reuse a server-side Supabase client."""
+    """Create the private, server-side administrator client."""
     url = st.secrets["SUPABASE_URL"]
     key = st.secrets["SUPABASE_KEY"]
     return create_client(url, key)
 
 
+@st.cache_resource
+def get_public_database_client():
+    """Create a public client restricted by Supabase RLS."""
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_ANON_KEY"]
+    return create_client(url, key)
+
+
 def create_table():
-    """Verify that the hosted feedback table is reachable."""
+    """Verify that the administrator can access the feedback table."""
     try:
-        get_database_client().table("feedback").select("id").limit(1).execute()
+        (
+            get_database_client()
+            .table("feedback")
+            .select("id")
+            .limit(1)
+            .execute()
+        )
     except Exception as exc:
         raise RuntimeError(
             "Could not connect to the CampusCare AI feedback database. "
@@ -23,7 +37,7 @@ def create_table():
 
 
 def save_feedback(issue, description, suggested_category, suggested_priority):
-    """Save feedback in the hosted Supabase database."""
+    """Save feedback using the private administrator client."""
     response = (
         get_database_client()
         .table("feedback")
@@ -38,8 +52,26 @@ def save_feedback(issue, description, suggested_category, suggested_priority):
     return response.data
 
 
+def save_feedback_public(
+    issue, description, suggested_category, suggested_priority
+):
+    """Allow student submissions through the public RLS policy."""
+    response = (
+        get_public_database_client()
+        .table("feedback")
+        .insert({
+            "issue": issue,
+            "description": description,
+            "suggested_category": suggested_category,
+            "suggested_priority": suggested_priority,
+        })
+        .execute()
+    )
+    return response.data
+
+
 def get_all_feedback():
-    """Return feedback records newest first."""
+    """Return feedback records newest first (administrator only)."""
     response = (
         get_database_client()
         .table("feedback")
@@ -65,7 +97,7 @@ def get_all_feedback():
 
 
 def get_feedback_category_counts():
-    """Count feedback records by suggested category."""
+    """Count feedback records by suggested category (administrator)."""
     from collections import Counter
 
     response = (
@@ -84,7 +116,7 @@ def get_feedback_category_counts():
 
 
 def get_feedback_priority_counts():
-    """Count feedback records by suggested priority."""
+    """Count feedback records by suggested priority (administrator)."""
     from collections import Counter
 
     response = (
