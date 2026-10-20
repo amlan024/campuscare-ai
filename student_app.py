@@ -51,8 +51,13 @@ with st.form("student_feedback_form"):
         "I confirm that my feedback contains no sensitive personal information."
     )
 
-    submitted = st.form_submit_button("Submit Feedback")
-
+    submitted = st.form_submit_button(
+        "Submit Feedback",
+        disabled=(
+            not description.strip()
+            or not confirm_submission
+        ),
+    )
 if submitted:
     if not description.strip():
         st.warning("Please describe your issue before submitting.")
