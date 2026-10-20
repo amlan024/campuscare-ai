@@ -123,8 +123,13 @@ if st.button(
         st.warning("Please describe your issue before submitting.")
 
 
+
 if st.button("Refresh Feedback Data"):
+    st.session_state["feedback_input"] = ""
+    st.session_state["confirm_submission"] = False
+    st.session_state["submission_processed"] = False
     st.rerun()
+
 
 st.header("Feedback History")
 
