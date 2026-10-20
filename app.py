@@ -543,6 +543,11 @@ else:
 
 
 st.subheader("📞 Campus Support Directory")
+st.caption(
+    "This directory lists general support roles. Please verify "
+    "the official contact details through your institute's "
+    "website or student support office."
+)
 
 support_contacts = [
     {
