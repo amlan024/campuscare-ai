@@ -28,7 +28,7 @@ st.info(
 )
 
 # Basic per-session cooldown; not a substitute for server-side rate limiting.
-COOLDOWN_SECONDS = 30
+COOLDOWN_SECONDS = 10
 
 if "last_successful_submission" not in st.session_state:
     st.session_state.last_successful_submission = 0.0
