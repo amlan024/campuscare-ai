@@ -38,17 +38,22 @@ def create_table():
 
 def save_feedback(issue, description, suggested_category, suggested_priority):
     """Save feedback using the private administrator client."""
+    
     response = (
-        get_database_client()
+        get_public_database_client()
         .table("feedback")
-        .insert({
-            "issue": issue,
-            "description": description,
-            "suggested_category": suggested_category,
-            "suggested_priority": suggested_priority,
-        })
+        .insert(
+            {
+                "issue": issue,
+                "description": description,
+                "suggested_category": suggested_category,
+                "suggested_priority": suggested_priority,
+            },
+            returning="minimal",
+        )
         .execute()
     )
+
     return response.data
 
 
