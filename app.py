@@ -1,6 +1,8 @@
 
+import hmac
 import streamlit as st
 import pandas as pd
+
 from database import (
     create_table,
     save_feedback,
@@ -9,7 +11,6 @@ from database import (
     get_feedback_priority_counts,
 )
 
-
 from ai_helper import (
     categorize_feedback,
     suggest_priority,
@@ -17,21 +18,57 @@ from ai_helper import (
     generate_campus_answer,
 )
 
-create_table()
-if "submission_processed" not in st.session_state:
-    st.session_state.submission_processed = False
-
-def reset_submission_state():
-    st.session_state.submission_processed = False
 st.set_page_config(
     page_title="CampusCare AI",
     page_icon="🎓",
-    layout="wide"
+    layout="wide",
 )
 
-st.title("🎓 CampusCare AI")
+# Keep each new session unauthenticated.
+if "admin_authenticated" not in st.session_state:
+    st.session_state.admin_authenticated = False
 
-st.subheader("Your Student Support & Campus Guide")
+st.title("🎓 CampusCare AI")
+st.subheader("Administrator Login")
+
+# Ask for the administrator password.
+with st.form("admin_login_form"):
+    admin_password = st.text_input(
+        "Enter admin password",
+        type="password",
+    )
+    login_submitted = st.form_submit_button("Log in")
+
+if login_submitted:
+    expected_password = st.secrets.get("ADMIN_PASSWORD", "")
+
+    if not expected_password:
+        st.error("Admin password is not configured.")
+    elif hmac.compare_digest(admin_password, expected_password):
+        st.session_state.admin_authenticated = True
+        st.rerun()
+    else:
+        st.error("Incorrect password. Please try again.")
+
+# Do not show feedback or dashboard data before login.
+if not st.session_state.admin_authenticated:
+    st.info("Log in as an administrator to access CampusCare AI.")
+    st.stop()
+
+if st.button("Log out"):
+    st.session_state.admin_authenticated = False
+    st.rerun()
+
+# Access the database only after authentication.
+create_table()
+
+if "submission_processed" not in st.session_state:
+    st.session_state.submission_processed = False
+
+
+def reset_submission_state():
+    st.session_state.submission_processed = False
+
 
 st.write(
     "Helping students find guidance, share feedback, "
