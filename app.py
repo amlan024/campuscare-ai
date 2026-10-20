@@ -243,6 +243,11 @@ with col2:
 
 
 st.subheader("Priority Summary")
+st.caption(
+    "These counts are based on rule-based priority suggestions. "
+    "They are indicators for review, not verified assessments "
+    "of risk or urgency."
+)
 
 priority_summary_table = [
     {
