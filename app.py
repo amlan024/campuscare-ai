@@ -134,6 +134,10 @@ if st.button(
         st.success(
             "Thank you! Your feedback has been saved successfully."
         )
+        st.info(
+            "Your feedback is now included in the campus feedback "
+            "records and relevant summary statistics."
+        )
         st.caption(
             f"Submission time: {get_all_feedback()[0][5]}"
         )
@@ -397,8 +401,10 @@ if records:
 
 
 else:
-    st.info("No feedback matches the selected filters or search.")
-
+    st.info(
+        "No feedback matches your current filters or search. "
+        "Try changing the category, priority, or search keyword."
+    )
 
 
 
