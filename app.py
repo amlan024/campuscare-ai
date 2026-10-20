@@ -9,7 +9,11 @@ from database import (
     get_feedback_priority_counts,
 )
 
-from ai_helper import categorize_feedback, suggest_priority
+from ai_helper import (
+    categorize_feedback,
+    suggest_priority,
+    retrieve_campus_knowledge,
+)
 
 create_table()
 if "submission_processed" not in st.session_state:
