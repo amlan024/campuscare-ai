@@ -81,11 +81,14 @@ if submitted:
                 "Your feedback is recorded for administrator review. "
                 "The suggested category and priority may not be accurate."
             )
-        except Exception:
+        
+        except Exception as exc:
             st.error(
                 "We could not submit your feedback. Please try again later. "
                 "Do not include sensitive personal information."
             )
+            st.code(f"{type(exc).__name__}: {exc}")
+
 
 st.divider()
 st.caption(
