@@ -36,9 +36,17 @@ st.header("Student Feedback")
 
 st.write("Share your campus-related concerns with us.")
 
+
 issue = st.selectbox(
     "What issue are you experiencing?",
-    ["Hostel Facilities", "Water Supply", "Internet", "Academic Support", "Other"]
+    [
+        "Hostel Facilities",
+        "Water Supply",
+        "Internet",
+        "Academic Support",
+        "Other",
+    ],
+    help="Choose the category that best describes your campus-related concern.",
 )
 
 feedback = st.text_area(
