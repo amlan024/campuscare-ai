@@ -707,10 +707,26 @@ if campus_question.strip():
                     "for GEMINI_API_KEY."
                 )
 
+            
             except Exception as error:
-                st.error("The AI answer could not be generated.")
-                st.caption(f"Error type: {type(error).__name__}")
-                st.code(str(error))
+                st.warning(
+                    "Gemini is temporarily unavailable. "
+                    "Here is the guidance retrieved from our "
+                    "campus knowledge base instead."
+                )
+
+                for entry in retrieved_entries:
+                    st.markdown(f"**{entry['question']}**")
+                    st.write(entry["answer"])
+                    st.caption(
+                        f"Topic: {entry['topic']} | "
+                        f"Source: {entry['source']}"
+                    )
+
+                st.caption(
+                    f"AI service error: {type(error).__name__}"
+                )
+
 
     else:
         st.info(
