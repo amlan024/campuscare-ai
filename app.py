@@ -760,9 +760,6 @@ if campus_question.strip():
                         f"Source: {entry['source']}"
                     )
 
-                st.caption(
-                    f"AI service error: {type(error).__name__}"
-                )
 
 
     else:
