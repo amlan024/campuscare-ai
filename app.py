@@ -46,6 +46,7 @@ feedback = st.text_area(
     max_chars=1000,
     help="Describe your campus issue in up to 1,000 characters.",
     key="feedback_input",
+    on_change=reset_submission_state,
 )
 st.caption(
     f"Characters used: {len(feedback)} / 1000"
