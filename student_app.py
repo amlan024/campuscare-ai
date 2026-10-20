@@ -1,3 +1,5 @@
+```python
+import time
 
 import streamlit as st
 
@@ -25,6 +27,22 @@ st.info(
     "or other sensitive personal information."
 )
 
+# Basic per-session cooldown; not a substitute for server-side rate limiting.
+COOLDOWN_SECONDS = 30
+
+if "last_successful_submission" not in st.session_state:
+    st.session_state.last_successful_submission = 0.0
+
+remaining = max(
+    0,
+    int(
+        COOLDOWN_SECONDS
+        - (
+            time.time()
+            - st.session_state.last_successful_submission
+        )
+    ),
+)
 
 issue = st.selectbox(
     "What issue are you experiencing?",
@@ -36,7 +54,6 @@ issue = st.selectbox(
         "Other",
     ],
 )
-
 
 description = st.text_area(
     "Describe your issue",
@@ -51,19 +68,33 @@ confirm_submission = st.checkbox(
     "I confirm that my feedback contains no sensitive personal information."
 )
 
+if remaining > 0:
+    st.warning(
+        f"Please wait {remaining} seconds before submitting again."
+    )
+
 submitted = st.button(
     "Submit Feedback",
     disabled=(
         not description.strip()
         or not confirm_submission
+        or remaining > 0
     ),
 )
 
 if submitted:
     clean_description = description.strip()
 
-    # Validate the input again before processing or saving.
-    if not clean_description:
+    # Recheck the cooldown and validate inputs before processing.
+    elapsed = (
+        time.time()
+        - st.session_state.last_successful_submission
+    )
+
+    if elapsed < COOLDOWN_SECONDS:
+        st.warning("Please wait before submitting again.")
+
+    elif not clean_description:
         st.warning("Please describe your issue before submitting.")
 
     elif len(clean_description) > 1000:
@@ -96,6 +127,8 @@ if submitted:
                 priority,
             )
 
+            st.session_state.last_successful_submission = time.time()
+
             st.success(
                 "Thank you! Your feedback was submitted successfully."
             )
@@ -104,17 +137,17 @@ if submitted:
                 "The suggested category and priority may not be accurate."
             )
 
+            st.rerun()
+
         except Exception:
             st.error(
                 "We could not submit your feedback. Please try again later. "
                 "Do not include sensitive personal information."
             )
 
-
-
 st.divider()
 st.caption(
     "CampusCare AI prototype · For urgent safety issues, contact "
     "campus security or the appropriate emergency services directly."
 )
-
+```
