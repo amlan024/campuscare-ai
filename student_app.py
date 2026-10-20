@@ -37,6 +37,7 @@ issue = st.selectbox(
     ],
 )
 
+
 description = st.text_area(
     "Describe your issue",
     max_chars=1000,
@@ -59,34 +60,56 @@ submitted = st.button(
 )
 
 if submitted:
-    if not description.strip():
+    clean_description = description.strip()
+
+    # Validate the input again before processing or saving.
+    if not clean_description:
         st.warning("Please describe your issue before submitting.")
+
+    elif len(clean_description) > 1000:
+        st.warning("Your description must be 1,000 characters or fewer.")
+
     elif not confirm_submission:
-        st.warning("Please confirm that your feedback contains no sensitive personal information.")
+        st.warning(
+            "Please confirm that your feedback contains no sensitive "
+            "personal information."
+        )
+
+    elif issue not in [
+        "Hostel Facilities",
+        "Water Supply",
+        "Internet",
+        "Academic Support",
+        "Other",
+    ]:
+        st.warning("Please select a valid issue category.")
+
     else:
         try:
-            category = categorize_feedback(description)
-            priority = suggest_priority(description)
+            category = categorize_feedback(clean_description)
+            priority = suggest_priority(clean_description)
 
             save_feedback_public(
                 issue,
-                description.strip(),
+                clean_description,
                 category,
                 priority,
             )
 
-            st.success("Thank you! Your feedback was submitted successfully.")
+            st.success(
+                "Thank you! Your feedback was submitted successfully."
+            )
             st.caption(
                 "Your feedback is recorded for administrator review. "
                 "The suggested category and priority may not be accurate."
             )
-        
-        except Exception as exc:
+
+        except Exception:
             st.error(
                 "We could not submit your feedback. Please try again later. "
                 "Do not include sensitive personal information."
             )
-            st.code(f"{type(exc).__name__}: {exc}")
+
 
 
 st.divider()
