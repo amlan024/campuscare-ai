@@ -10,7 +10,15 @@ def categorize_feedback(feedback):
     elif "hostel" in text or "room" in text:
         return "Hostel Facilities"
 
-    elif "course" in text or "study" in text:
+    elif any(word in text for word in [
+        "academic",
+        "course",
+        "study",
+        "faculty",
+        "advisor",
+        "elective",
+        "semester",
+    ]):
         return "Academic Support"
 
     else:
