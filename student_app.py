@@ -4,23 +4,6 @@ import streamlit as st
 from database import save_feedback_public
 from ai_helper import categorize_feedback, suggest_priority
 
-if st.button("Run privacy check (testing only)"):
-    try:
-        from database import get_public_database_client
-
-        get_public_database_client().table("feedback").select(
-            "id"
-        ).limit(1).execute()
-
-        st.error(
-            "Privacy check failed: public reading appears possible. "
-            "Investigate permissions before using real data."
-        )
-    except Exception:
-        st.success(
-            "Privacy check passed: public reading was denied."
-        )
-
 st.set_page_config(
     page_title="CampusCare AI — Student Portal",
     page_icon="🎓",
