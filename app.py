@@ -576,6 +576,11 @@ st.download_button(
 
 
 st.subheader("📊 Campus Issue Overview")
+st.caption(
+    "View aggregated feedback counts by category to identify "
+    "common campus concerns. These counts represent submitted "
+    "feedback, not verified incidents."
+)
 
 overview_counts = get_feedback_category_counts()
 
