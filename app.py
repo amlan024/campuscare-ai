@@ -279,7 +279,12 @@ st.download_button(
 )
 
 
+
 st.subheader("Priority Distribution")
+st.caption(
+    "This chart shows the number of submitted feedback records "
+    "assigned each rule-based priority level."
+)
 
 priority_chart_data = {
     "Priority": ["High", "Normal"],
