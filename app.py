@@ -49,10 +49,19 @@ issue = st.selectbox(
     help="Choose the category that best describes your campus-related concern.",
 )
 
+
 feedback = st.text_area(
     "Describe your issue",
     max_chars=1000,
-    help="Describe your campus issue in up to 1,000 characters.",
+    help=(
+        "Explain what happened, where the campus issue occurs, "
+        "and what support is needed. Use up to 1,000 characters. "
+        "Do not include sensitive personal information."
+    ),
+    placeholder=(
+        "Example: The internet connection in the hostel study "
+        "area has been slow since yesterday."
+    ),
     key="feedback_input",
     on_change=reset_submission_state,
 )
