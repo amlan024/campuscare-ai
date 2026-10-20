@@ -47,7 +47,7 @@ The platform combines rule-based feedback categorization, priority suggestions, 
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/amlan024/campuscare-ai
 cd YOUR_REPOSITORY_FOLDER
 ```
 
@@ -111,8 +111,8 @@ Configure secrets separately for each deployed application. The public student p
 
 Add your actual deployed application URLs here:
 
-- **Student Portal:** YOUR_STUDENT_PORTAL_URL
-- **Administrator Dashboard:** YOUR_ADMIN_DASHBOARD_URL
+- **Student Portal:** https://campuscare-ai-8airkmr3qobhqmxrsfhh6l.streamlit.app/
+- **Administrator Dashboard:** https://campuscare-ai-nvbeqhupr3braoqkqjsctx.streamlit.app/
 
 Replace both placeholders with the real URLs before publishing the project documentation.
 
