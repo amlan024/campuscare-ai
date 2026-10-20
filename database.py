@@ -36,9 +36,29 @@ def create_table():
         ) from exc
 
 
+
 def save_feedback(issue, description, suggested_category, suggested_priority):
     """Save feedback using the private administrator client."""
-    
+    response = (
+        get_database_client()
+        .table("feedback")
+        .insert({
+            "issue": issue,
+            "description": description,
+            "suggested_category": suggested_category,
+            "suggested_priority": suggested_priority,
+        })
+        .execute()
+    )
+    return response.data
+
+
+
+
+def save_feedback_public(
+    issue, description, suggested_category, suggested_priority
+):
+    """Insert student feedback without returning database rows."""
     response = (
         get_public_database_client()
         .table("feedback")
@@ -53,26 +73,8 @@ def save_feedback(issue, description, suggested_category, suggested_priority):
         )
         .execute()
     )
-
     return response.data
 
-
-def save_feedback_public(
-    issue, description, suggested_category, suggested_priority
-):
-    """Allow student submissions through the public RLS policy."""
-    response = (
-        get_public_database_client()
-        .table("feedback")
-        .insert({
-            "issue": issue,
-            "description": description,
-            "suggested_category": suggested_category,
-            "suggested_priority": suggested_priority,
-        })
-        .execute()
-    )
-    return response.data
 
 
 def get_all_feedback():
