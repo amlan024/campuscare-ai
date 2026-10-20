@@ -708,11 +708,9 @@ if campus_question.strip():
                 )
 
             except Exception as error:
-                st.error(
-                    "The AI answer could not be generated. Check your "
-                    "Gemini API configuration and Streamlit deployment logs."
-                )
+                st.error("The AI answer could not be generated.")
                 st.caption(f"Error type: {type(error).__name__}")
+                st.code(str(error))
 
     else:
         st.info(
