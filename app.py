@@ -440,7 +440,10 @@ else:
 st.header("🎓 Student Guide")
 
 st.write(
-    "Find helpful guidance for common campus-related questions."
+    "Explore guidance for common campus concerns, including "
+    "hostel facilities, water supply, internet connectivity, "
+    "academic support, and urgent safety issues. For emergencies, "
+    "contact the appropriate authorities directly."
 )
 
 guide_topic = st.selectbox(
