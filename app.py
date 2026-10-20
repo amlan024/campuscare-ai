@@ -12,6 +12,8 @@ from database import (
 from ai_helper import categorize_feedback, suggest_priority
 
 create_table()
+if "submission_processed" not in st.session_state:
+    st.session_state.submission_processed = False
 st.set_page_config(
     page_title="CampusCare AI",
     page_icon="🎓",
