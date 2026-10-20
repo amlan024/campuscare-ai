@@ -1,4 +1,4 @@
-```python
+
 import time
 
 import streamlit as st
@@ -150,4 +150,3 @@ st.caption(
     "CampusCare AI prototype · For urgent safety issues, contact "
     "campus security or the appropriate emergency services directly."
 )
-```
