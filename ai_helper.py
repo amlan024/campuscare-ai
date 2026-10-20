@@ -34,56 +34,65 @@ def suggest_priority(feedback):
     return "Normal"
 
 
+
 def retrieve_campus_knowledge(question, limit=3):
-    """Retrieve campus knowledge using keyword relevance."""
+    """Retrieve campus guidance relevant to the question."""
+    import json
+    from pathlib import Path
+
     knowledge_path = Path(__file__).parent / "campus_knowledge.json"
 
     with knowledge_path.open("r", encoding="utf-8") as file:
         knowledge = json.load(file)
 
-    question_words = {
-        word.strip(".,?!:;()[]{}").lower()
-        for word in question.split()
-    }
-    question_words = {
-        word for word in question_words if len(word) > 2
-    }
+    text = question.lower()
 
     topic_keywords = {
-        "Academic Support": {
-            "academic", "course", "study", "faculty",
-            "advisor", "advising", "elective", "semester",
-        },
-        "Internet": {
-            "wifi", "internet", "network", "connection",
-        },
-        "Hostel Facilities": {
-            "hostel", "room", "warden",
-        },
-        "Water Supply": {
-            "water", "supply", "tap",
-        },
+        "Academic Support": [
+            "academic", "guidance", "advisor", "faculty",
+            "course", "study", "elective", "semester",
+        ],
+        "Internet": [
+            "wifi", "wi-fi", "internet", "network", "connectivity",
+        ],
+        "Hostel Facilities": [
+            "hostel", "warden", "dormitory", "room",
+        ],
+        "Water Supply": [
+            "water", "supply", "tap", "drinking water",
+        ],
     }
+
+    matching_topics = [
+        topic for topic, keywords in topic_keywords.items()
+        if any(keyword in text for keyword in keywords)
+    ]
 
     results = []
 
     for item in knowledge:
+        topic = item.get("topic", "")
+
+        if matching_topics:
+            if topic in matching_topics:
+                results.append((10, item))
+            continue
+
         searchable_text = (
-            item["topic"] + " "
-            + item["question"] + " "
-            + item["answer"]
+            item.get("question", "") + " "
+            + item.get("answer", "") + " "
+            + topic
         ).lower()
 
-        searchable_words = {
+        words = {
             word.strip(".,?!:;()[]{}")
-            for word in searchable_text.split()
+            for word in text.split()
+            if len(word.strip(".,?!:;()[]{}")) > 3
         }
 
-        score = len(question_words & searchable_words)
-
-        keywords = topic_keywords.get(item["topic"], set())
-        if question_words & keywords:
-            score += 5
+        score = sum(
+            1 for word in words if word in searchable_text
+        )
 
         if score > 0:
             results.append((score, item))
@@ -91,6 +100,7 @@ def retrieve_campus_knowledge(question, limit=3):
     results.sort(key=lambda result: result[0], reverse=True)
 
     return [item for score, item in results[:limit]]
+
 
 
 def generate_campus_answer(question, knowledge_entries, api_key):
