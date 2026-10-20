@@ -102,9 +102,11 @@ st.warning(
     "testing this prototype."
 )
 
+
 confirm_submission = st.checkbox(
-    "I have reviewed my feedback before submitting.",
+    "I confirm that my feedback is accurate and contains no sensitive personal information.",
     key="confirm_submission",
+    help="Please review your description before submitting. Do not include passwords, student IDs, or financial details.",
 )
 
 if st.button(
