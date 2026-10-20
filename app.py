@@ -420,10 +420,20 @@ elif guide_topic == "Internet":
         "campus IT support team."
     )
 
+
 elif guide_topic == "Academic Support":
     st.info(
         "For academic guidance, contact your faculty advisor "
         "or the appropriate academic office."
+    )
+
+elif guide_topic == "Urgent Safety Issue":
+    st.error(
+        "URGENT SAFETY CONCERN: Contact campus security or "
+        "the appropriate campus authority immediately. "
+        "If someone is in immediate danger, move to a safe "
+        "place and contact local emergency services. "
+        "Do not rely on this app for emergency assistance."
     )
 
 else:
@@ -431,6 +441,7 @@ else:
         "For general campus guidance, consult your institute's "
         "official website or student support office."
     )
+
 
 
 
