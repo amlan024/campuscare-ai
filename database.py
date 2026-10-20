@@ -1,137 +1,102 @@
-import sqlite3
 
+import streamlit as st
+from supabase import create_client
+
+
+@st.cache_resource
+def get_database_client():
+    """Create and reuse a server-side Supabase client."""
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
+    return create_client(url, key)
 
 
 def create_table():
-    connection = sqlite3.connect("campuscare.db")
-    cursor = connection.cursor()
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS feedback (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            issue TEXT NOT NULL,
-            description TEXT NOT NULL,
-            suggested_category TEXT DEFAULT 'Other',
-            suggested_priority TEXT DEFAULT 'Normal',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
-
-    cursor.execute("PRAGMA table_info(feedback)")
-    columns = [column[1] for column in cursor.fetchall()]
-
-    if "suggested_category" not in columns:
-        cursor.execute(
-            "ALTER TABLE feedback ADD COLUMN suggested_category TEXT DEFAULT 'Other'"
-        )
-
-    
-    if "suggested_priority" not in columns:
-        cursor.execute(
-            "ALTER TABLE feedback ADD COLUMN suggested_priority TEXT DEFAULT 'Normal'"
-        )
-
-
-    connection.commit()
-    connection.close()
-
-
+    """Verify that the hosted feedback table is reachable."""
+    try:
+        get_database_client().table("feedback").select("id").limit(1).execute()
+    except Exception as exc:
+        raise RuntimeError(
+            "Could not connect to the CampusCare AI feedback database. "
+            "Check the Supabase configuration and table permissions."
+        ) from exc
 
 
 def save_feedback(issue, description, suggested_category, suggested_priority):
-    connection = sqlite3.connect("campuscare.db")
-
-    cursor = connection.cursor()
-
-    cursor.execute(
-        """
-        INSERT INTO feedback (
-            issue,
-            description,
-            suggested_category,
-            suggested_priority
-        )
-        VALUES (?, ?, ?, ?)
-        """,
-        (issue, description, suggested_category, suggested_priority)
+    """Save feedback in the hosted Supabase database."""
+    response = (
+        get_database_client()
+        .table("feedback")
+        .insert({
+            "issue": issue,
+            "description": description,
+            "suggested_category": suggested_category,
+            "suggested_priority": suggested_priority,
+        })
+        .execute()
     )
-
-    connection.commit()
-    connection.close()
-
-
-
+    return response.data
 
 
 def get_all_feedback():
-    connection = sqlite3.connect("campuscare.db")
-    cursor = connection.cursor()
-
-    cursor.execute(
-        """
-        SELECT
-            id,
-            issue,
-            description,
-            suggested_category,
-            suggested_priority,
-            created_at
-        FROM feedback
-        ORDER BY id DESC
-        """
+    """Return feedback records newest first."""
+    response = (
+        get_database_client()
+        .table("feedback")
+        .select(
+            "id, issue, description, suggested_category, "
+            "suggested_priority, created_at"
+        )
+        .order("id", desc=True)
+        .execute()
     )
 
-    records = cursor.fetchall()
-    connection.close()
-
-    return records
-
-
-
-
+    return [
+        (
+            record["id"],
+            record["issue"],
+            record["description"],
+            record.get("suggested_category") or "Other",
+            record.get("suggested_priority") or "Normal",
+            record["created_at"],
+        )
+        for record in response.data
+    ]
 
 
 def get_feedback_category_counts():
-    connection = sqlite3.connect("campuscare.db")
+    """Count feedback records by suggested category."""
+    from collections import Counter
 
-    cursor = connection.cursor()
-
-    cursor.execute(
-        """
-        SELECT suggested_category, COUNT(*)
-        FROM feedback
-        GROUP BY suggested_category
-        ORDER BY COUNT(*) DESC
-        """
+    response = (
+        get_database_client()
+        .table("feedback")
+        .select("suggested_category")
+        .execute()
     )
 
-    category_counts = cursor.fetchall()
+    counts = Counter(
+        record.get("suggested_category") or "Other"
+        for record in response.data
+    )
 
-    connection.close()
-
-    return category_counts
-
-
-
-
+    return sorted(counts.items(), key=lambda item: item[1], reverse=True)
 
 
 def get_feedback_priority_counts():
-    connection = sqlite3.connect("campuscare.db")
+    """Count feedback records by suggested priority."""
+    from collections import Counter
 
-    cursor = connection.cursor()
-
-    cursor.execute(
-        """
-        SELECT suggested_priority, COUNT(*)
-        FROM feedback
-        GROUP BY suggested_priority
-        ORDER BY COUNT(*) DESC
-        """
+    response = (
+        get_database_client()
+        .table("feedback")
+        .select("suggested_priority")
+        .execute()
     )
 
-    priority_counts = cursor.fetchall()
+    counts = Counter(
+        record.get("suggested_priority") or "Normal"
+        for record in response.data
+    )
 
-    connection.close()
-
-    return priority_counts
+    return sorted(counts.items(), key=lambda item: item[1], reverse=True)
