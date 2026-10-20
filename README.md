@@ -1,76 +1,140 @@
 # CampusCare AI 🎓
 
-An AI-powered student support platform for campus guidance, student feedback, and campus problem tracking.
+An AI-powered student support platform for campus guidance, student feedback, and campus issue management.
 
 ## 🚀 Overview
 
-CampusCare AI helps students find campus guidance, submit feedback, track common campus issues, and explore support resources through an interactive web application.
+CampusCare AI provides students with a public feedback portal and administrators with a separate private dashboard for reviewing feedback and exploring campus support resources.
 
-It combines rule-based feedback analysis with AI-generated answers grounded in a sample campus knowledge base.
+The platform combines rule-based feedback categorization, priority suggestions, searchable campus guidance, and AI-generated answers grounded in a sample campus knowledge base.
+
+**Project status:** Working prototype deployed using Streamlit Community Cloud and Supabase.
 
 ## ✨ Features
 
-- **Student Feedback:** Submit campus feedback through an interactive form.
-- **Automatic Categorization:** Classify feedback into categories such as Academic Support, Internet, Hostel Facilities, and Water Supply.
+- **Student Feedback Portal:** Submit campus-related concerns through a separate public web application.
+- **Automatic Categorization:** Suggest categories such as Academic Support, Internet, Hostel Facilities, and Water Supply.
 - **Priority Suggestions:** Identify potentially urgent feedback using rule-based keywords.
-- **Feedback Dashboard:** View feedback history, category summaries, and priority statistics.
-- **Search and Filtering:** Find feedback by keyword, category, and priority.
+- **Administrator Dashboard:** Review feedback history and view category and priority statistics.
+- **Search and Filtering:** Find feedback using available keywords, categories, and priorities.
 - **CSV Exports:** Export feedback and summary reports.
-- **Student Guide and FAQs:** Search guidance and browse common campus support information.
-- **Campus Knowledge Assistant:** Retrieve relevant sample campus guidance.
-- **AI-Generated Answers:** Use Google Gemini to generate concise answers based on retrieved guidance, with a fallback when the AI service is unavailable.
+- **Student Guide and FAQs:** Explore common campus support information.
+- **Campus Knowledge Assistant:** Retrieve relevant information from a sample campus knowledge base.
+- **AI-Generated Answers:** Use Google Gemini to generate answers grounded in retrieved guidance, with fallback handling when the AI service is unavailable.
+- **Separate Public and Private Applications:** Keep the student submission interface separate from the administrator dashboard.
 
 ## 🛠️ Technology Stack
 
 - Python
 - Streamlit
 - Pandas
-- SQLite
+- Supabase (PostgreSQL database)
 - Google Gemini API (`google-genai`)
 - JSON-based campus knowledge
 
+## 🏗️ Project Structure
+
+- `app.py` — Administrator dashboard
+- `student_app.py` — Public student feedback portal
+- `database.py` — Database clients and feedback operations
+- `ai_helper.py` — Feedback analysis and AI helper functions
+- `campus_knowledge.json` — Sample campus knowledge base
+- `requirements.txt` — Python dependencies
+- `.gitignore` — Files excluded from version control
+
 ## ⚙️ Run Locally
 
-1. Clone this repository:
+### 1. Clone the repository
 
-   ```bash
-   git clone YOUR_GITHUB_REPOSITORY_URL
-   cd YOUR_REPOSITORY_FOLDER
-   ```
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd YOUR_REPOSITORY_FOLDER
+```
 
-2. Install the dependencies:
+Replace the placeholders with your actual repository URL and folder name.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 2. Install dependencies
 
-3. Create a `.streamlit/secrets.toml` file and add your Gemini API key:
+```bash
+pip install -r requirements.txt
+```
 
-   ```toml
-   GEMINI_API_KEY = "your_gemini_api_key"
-   ```
+### 3. Configure Streamlit secrets
 
-4. Start the application:
+Create a `.streamlit/secrets.toml` file in the project directory.
 
-   ```bash
-   streamlit run app.py
-   ```
+For the administrator dashboard, configure these keys using the corresponding values from your Supabase project and Gemini account:
 
-Replace the repository URL and folder name with your actual GitHub details. Keep your API key private and never commit `secrets.toml` to GitHub.
+```toml
+SUPABASE_URL = "your_supabase_project_url"
+SUPABASE_KEY = "your_server_side_supabase_secret"
+SUPABASE_ANON_KEY = "your_supabase_publishable_or_anon_key"
+GEMINI_API_KEY = "your_gemini_api_key"
+ADMIN_PASSWORD = "your_strong_admin_password"
+```
 
-## 🔐 Privacy and Limitations
+For the student portal, configure only the following database connection keys in its Streamlit secrets:
 
-- The campus knowledge included in this project is sample guidance and is not verified official campus policy.
-- Feedback categorization and priority suggestions use simple rules and may not always be accurate.
-- Gemini-generated answers depend on the retrieved knowledge and AI service availability.
-- SQLite data stored on an ephemeral hosting filesystem may not persist across restarts or redeployments.
-- Use fictional or non-sensitive feedback for demonstrations. A production deployment would need appropriate privacy safeguards, durable storage, access controls, and human review.
+```toml
+SUPABASE_URL = "your_supabase_project_url"
+SUPABASE_ANON_KEY = "your_supabase_publishable_or_anon_key"
+```
+
+Use the exact key names expected by your application code. Never commit `.streamlit/secrets.toml` or expose server-side database secrets in public code.
+
+### 4. Start the administrator dashboard
+
+```bash
+streamlit run app.py
+```
+
+### 5. Start the student portal
+
+In another terminal, run:
+
+```bash
+streamlit run student_app.py
+```
+
+The two applications can run on separate local Streamlit ports.
+
+## ☁️ Deployment
+
+The project uses Streamlit Community Cloud for hosting and Supabase for database storage.
+
+Deploy each application separately:
+
+- **Administrator dashboard:** Set the main file path to `app.py`.
+- **Student feedback portal:** Set the main file path to `student_app.py`.
+
+Configure secrets separately for each deployed application. The public student portal should not receive the administrator's server-side database secret, administrator password, or Gemini API key unless its code explicitly requires them.
+
+Add your actual deployed application URLs here:
+
+- **Student Portal:** YOUR_STUDENT_PORTAL_URL
+- **Administrator Dashboard:** YOUR_ADMIN_DASHBOARD_URL
+
+Replace both placeholders with the real URLs before publishing the project documentation.
+
+## 🔐 Security, Privacy, and Limitations
+
+- The student portal is intended for feedback submission; it does not provide public feedback history or administrator dashboard statistics.
+- Supabase Row-Level Security is enabled on the feedback table. Anonymous access is restricted to the configured insertion policy, and public reading was tested and denied.
+- Keep the administrator dashboard and its server-side credentials protected.
+- Input validation includes checks for empty descriptions, description length, consent, and valid issue categories.
+- Input validation alone does not prevent spam, automated abuse, or repeated submissions. Additional abuse prevention and rate limiting should be reviewed before real-world deployment.
+- Do not submit passwords, student identification numbers, financial information, or other sensitive personal information during demonstrations.
+- Campus guidance is sample content and should not be treated as verified official campus policy.
+- Feedback categories and priority suggestions may be inaccurate and require human review.
+- AI-generated answers depend on retrieved knowledge and the availability of the AI service.
+- Protect secrets, review access controls, and establish appropriate privacy notices and data-retention practices before collecting real student feedback.
 
 ## 🎯 Project Goal
 
-The goal of CampusCare AI is to demonstrate how Python, data analysis, information retrieval, and generative AI can be combined to build a practical student-support application.
+CampusCare AI demonstrates how Python, data analysis, information retrieval, database integration, and generative AI can be combined to build a practical student-support application.
 
 ## 👨‍💻 Author
 
-Amlan Mishra  
-Computer Science and Engineering Student, IIITDM Jabalpur
+**Amlan Mishra**  
+Computer Science and Engineering Student  
+Indian Institute of Information Technology, Design and Manufacturing, Jabalpur (IIITDMJ)
