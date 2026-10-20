@@ -465,8 +465,8 @@ faq_items = {
 }
 
 faq_search = st.text_input(
-    "Search FAQs",
-    placeholder="Type a keyword, e.g. internet or academic",
+    "Search frequently asked questions",
+    placeholder="Try internet, academics, or campus support...",
 )
 
 matching_faqs = {
