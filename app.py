@@ -298,6 +298,11 @@ st.bar_chart(
 
 
 st.subheader("Feedback by Category")
+st.caption(
+    "Categories are suggested by predefined rules. "
+    "Review the original feedback before drawing conclusions "
+    "about campus-wide problems."
+)
 
 category_counts = get_feedback_category_counts()
 
