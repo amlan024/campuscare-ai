@@ -124,12 +124,16 @@ if st.button(
 
 
 
-if st.button("Refresh Feedback Data"):
+def refresh_feedback_data():
     st.session_state["feedback_input"] = ""
     st.session_state["confirm_submission"] = False
     st.session_state["submission_processed"] = False
-    st.rerun()
 
+
+st.button(
+    "Refresh Feedback Data",
+    on_click=refresh_feedback_data,
+)
 
 st.header("Feedback History")
 
