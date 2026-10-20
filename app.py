@@ -342,6 +342,11 @@ if category_counts:
 
     
     st.subheader("Category Distribution")
+    st.caption(
+        "This chart summarizes submitted feedback by suggested "
+        "category. One submission represents one feedback record, "
+        "not necessarily one unique campus incident."
+    )
 
     chart_data = {
         "Category": [category for category, count in category_counts],
