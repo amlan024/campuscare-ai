@@ -9,10 +9,12 @@ from database import (
     get_feedback_priority_counts,
 )
 
+
 from ai_helper import (
     categorize_feedback,
     suggest_priority,
     retrieve_campus_knowledge,
+    generate_campus_answer,
 )
 
 create_table()
@@ -671,6 +673,7 @@ campus_question = st.text_input(
     key="campus_question",
 )
 
+
 if campus_question.strip():
     retrieved_entries = retrieve_campus_knowledge(campus_question)
 
@@ -683,9 +686,36 @@ if campus_question.strip():
                 st.caption(
                     f"Topic: {entry['topic']} | Source: {entry['source']}"
                 )
+
+        if st.button("Generate AI Answer", key="generate_ai_answer"):
+            try:
+                api_key = st.secrets["GEMINI_API_KEY"]
+
+                with st.spinner("Generating an answer with Gemini..."):
+                    answer = generate_campus_answer(
+                        campus_question,
+                        retrieved_entries,
+                        api_key,
+                    )
+
+                st.subheader("🤖 AI Answer")
+                st.write(answer)
+
+            except KeyError:
+                st.error(
+                    "Gemini API key is missing. Check Streamlit Secrets "
+                    "for GEMINI_API_KEY."
+                )
+
+            except Exception as error:
+                st.error(
+                    "The AI answer could not be generated. Check your "
+                    "Gemini API configuration and Streamlit deployment logs."
+                )
+                st.caption(f"Error type: {type(error).__name__}")
+
     else:
         st.info(
-            "No relevant campus guidance was found in the current "
-            "knowledge base. Try different keywords or consult official "
-            "institute resources."
+            "No relevant campus guidance was found. Try different "
+            "keywords or consult official institute resources."
         )
